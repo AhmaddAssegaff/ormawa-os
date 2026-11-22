@@ -17,4 +17,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin', fn () => 'Area khusus admin');
+});
+
+Route::middleware(['auth', 'permission:manage users'])->post('/admin/users', function () {
+    // Proses kelola user
+});
+
 require __DIR__.'/auth.php';
